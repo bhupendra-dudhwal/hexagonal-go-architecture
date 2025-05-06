@@ -1,50 +1,97 @@
-# hexagonal-go-architecture
-A modular, scalable Go application built with Clean Architecture and Hexagonal principles. This repo demonstrates how to organize your codebase using layers like handler, service, middleware, repository, and builder, suitable for enterprise-grade systems.
+# 📐 Hexagonal Go Architecture
 
-# Go Clean Hexagonal Architecture
+A modular, scalable Go application designed with **Clean Architecture** and **Hexagonal principles**. This repository demonstrates how to organize a robust, enterprise-ready codebase using clear boundaries between domain logic, infrastructure, and delivery mechanisms.
 
-A sample Go project that demonstrates how to build scalable and maintainable applications using **Clean Architecture** and **Hexagonal principles**.
+---
+
+## ✨ Key Highlights
+
+- 🔌 Clean, loosely coupled code structure
+- 🧱 Builder pattern for dependency injection
+- 🌐 HTTP handlers with middleware support
+- 📦 Pluggable outbound adapters (e.g., DB, Cache, APIs)
+- 📜 Response utilities (JSON/XML, GZIP)
+- 🧪 Testable interfaces and services
 
 ---
 
 ## 📦 Folder Structure
-
 ```
-├── cmd/ # Application entry points
-│ ├── http/ # HTTP server startup
-│ └── jobs/ # (Optional) Cron or background jobs
-├── internal/ # Core application logic (not accessible outside)
-│ ├── builder/ # Builder pattern for dependency injection
-│ ├── core/
-│ │ ├── constants/ # Shared constants (HTTP codes, error messages)
-│ │ ├── model/ # Domain models
-│ │ ├── ports/ # Inbound/outbound interfaces (use case boundaries)
-│ │ ├── service/ # Business logic implementation
-│ │ └── repository/ # Data access interfaces
-│ ├── inbound/ # Inbound adapters (HTTP handlers, middleware)
-│ ├── outbound/ # Outbound adapters (DB, external APIs, cache)
-│ └── utils/ # Helper functions/utilities
-├── scripts/ # Project-related scripts (migration, etc.)
+├── cmd/                  # Application entry points
+│   ├── http/             # HTTP server bootstrap
+│   └── jobs/             # Background workers / CRON jobs
+│
+├── internal/             # Internal application logic
+│   ├── builder/          # App builder (DI, config, logger)
+│   ├── core/
+│   │   ├── constants/    # HTTP codes, errors, app-level constants
+│   │   ├── model/        # Domain models
+│   │   ├── ports/        # Inbound/outbound interfaces
+│   │   ├── service/      # Business use cases
+│   │   └── repository/   # Repository interfaces
+│   ├── inbound/          # Adapters: HTTP handlers, middleware
+│   ├── outbound/         # Infrastructure: DB, Cache, External APIs
+│   └── utils/            # Utility packages
+│
+├── scripts/              # Automation scripts (migrations, tools)
+├── Dockerfile            # Multi-stage build Dockerfile
+├── Makefile              # Dev commands (build, run, clean, etc.)
 ├── go.mod
 └── go.sum
 ```
 
----
-
-## ✅ Features
-
-- Clear separation of concerns
-- Builder pattern for dependency injection
-- HTTP handlers and middleware
-- Extensible structure for DB and external APIs
-- Testable services and interfaces
-- Response wrapper (JSON/XML with optional gzip compression)
 
 ---
 
 ## 🚀 Getting Started
 
+### 🔧 Prerequisites
+
+- Go 1.20+
+- Docker
+- Make
+
+### 🔨 Running Locally
+
 ```bash
 git clone https://github.com/bhupendra-dudhwal/hexagonal-go-architecture.git
 cd hexagonal-go-architecture
 go run cmd/http/http.go
+```
+
+### 🐳 Using Docker
+```bash
+make build      # Build the Docker image
+make run        # Run the container
+make stop       # Stop the container
+make clean      # Remove the Docker image
+make rebuild    # Clean and rebuild
+make tag        # Add version tag to image
+```
+
+---
+
+# 🧰 Available Endpoints
+```
+| Method | Path    | Description     |
+| ------ | ------- | --------------- |
+| POST   | `/user` | Create new user |
+```
+
+# 🧪 Testing
+You can structure unit and integration tests under internal/core/service and internal/core/ports. Add mocks as needed to simulate repository behaviors.
+
+# 📌 Tech Stack
+- Go (Golang)
+- Gorilla Mux
+- Docker + Alpine
+- Clean Architecture
+- Builder Pattern
+- Middleware Architecture
+
+# 🤝 Contributing
+- Contributions are welcome! Please:
+- Fork the repo
+- Create a feature branch
+- Raise a pull request
+
