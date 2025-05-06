@@ -9,7 +9,7 @@ A sample Go project that demonstrates how to build scalable and maintainable app
 
 ## 📦 Folder Structure
 
-.
+```
 ├── cmd/ # Application entry points
 │ ├── http/ # HTTP server startup
 │ └── jobs/ # (Optional) Cron or background jobs
