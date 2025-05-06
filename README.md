@@ -27,7 +27,7 @@ A sample Go project that demonstrates how to build scalable and maintainable app
 ├── scripts/ # Project-related scripts (migration, etc.)
 ├── go.mod
 └── go.sum
-
+```
 
 ---
 
