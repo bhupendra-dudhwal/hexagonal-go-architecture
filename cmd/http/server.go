@@ -2,8 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -21,15 +19,16 @@ func main() {
 		SetMiddleware().
 		SetResponse().
 		SetUserService().
+		SetAuthService().
+		SetHealthService().
+		SetHandlers().
 		SetServer().
 		Build()
 
-	fmt.Println(time.Now().In(app.Timezone))
-
 	go func() {
-		fmt.Println("server running on :8080")
+		app.Log.Info().Str("port", ":8081").Msg("starting server")
 		if err := app.Server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Fatal("error: %w", err)
+			app.Log.Fatal().Err(err).Msg("server crashed")
 		}
 	}()
 
@@ -38,13 +37,15 @@ func main() {
 
 	<-stop
 
-	fmt.Println("cancel signal received")
+	app.Log.Info().Msg("shutdown signal received")
 
 	// Siganl received not wait to finish ongoing task
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	if err := app.Server.Shutdown(ctx); err != nil {
-		fmt.Printf("error: while trying to shoutdown server")
+		app.Log.Error().Err(err).Msg("error during shutdown")
+	} else {
+		app.Log.Info().Msg("server shutdown gracefully")
 	}
 }

@@ -1,6 +1,6 @@
-package builder
+package ports
 
-import "project_structure/internal/core/model/app"
+import "project_structure/internal/core/model"
 
 type IBuilder interface {
 	SetConfig() IBuilder
@@ -10,5 +10,8 @@ type IBuilder interface {
 	SetUserService() IBuilder
 	SetServer() IBuilder
 	SetResponse() IBuilder
-	Build() *app.App
+	SetAuthService() IBuilder
+	SetHealthService() IBuilder
+	SetHandlers() IBuilder
+	Build() *model.App
 }
